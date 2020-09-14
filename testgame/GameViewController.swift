@@ -12,6 +12,17 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var viewScene: SCNView!
+    @IBOutlet weak var labelScore: UILabel!
+    
+    var scores: Int = 0{
+        didSet{
+            self.labelScore.text="Очки: \(self.scores)"
+        }
+    }
+    
+    var tapGesture : UITapGestureRecognizer!
+    
     var ship: SCNNode!
     
     var duration: TimeInterval = 5
@@ -39,12 +50,17 @@ class GameViewController: UIViewController {
         
         ship.position = SCNVector3(x, y, z )
         
-        let lookAtPos = SCNVector3(2*x, 2 * y, 2 * z)
+        let multipler = 3
+        let lookAtPos = SCNVector3(multipler * x, multipler * y, multipler * z)
         ship.look(at: lookAtPos)
             
-        let duration = self.duration * Double(z) / 100.0
+        let duration = -self.duration * Double(z) / 100.0
         ship.runAction(SCNAction.move(to: SCNVector3(x:0, y:0, z: -10), duration: duration)){
+            self.removeExtraShip()
             
+            DispatchQueue.main.async {
+                self.viewScene?.removeGestureRecognizer(self.tapGesture)
+            }
         }
         self.duration *= 0.9
     }
@@ -52,6 +68,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         removeExtraShip()
+        self.scores=0
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -82,7 +99,7 @@ class GameViewController: UIViewController {
      //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
         // retrieve the SCNView
-        let scnView = self.view as! SCNView
+        let scnView = self.viewScene!
         
         // set the scene to the view
         scnView.scene = scene
@@ -97,7 +114,7 @@ class GameViewController: UIViewController {
         scnView.backgroundColor = UIColor.black
         
         // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
         
         spawnShip()
@@ -106,8 +123,7 @@ class GameViewController: UIViewController {
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         // retrieve the SCNView
-        let scnView = self.view as! SCNView
-        
+        let scnView = self.viewScene!
         // check what nodes are tapped
         let p = gestureRecognize.location(in: scnView)
         let hitResults = scnView.hitTest(p, options: [:])
@@ -127,7 +143,8 @@ class GameViewController: UIViewController {
             SCNTransaction.completionBlock = {
                self.ship.removeAllActions()
                self.removeExtraShip()
-               self.spawnShip()
+                self.scores+=10
+                self.spawnShip()
                                
             }
             
