@@ -1,3 +1,5 @@
-# testgameios
-First test game on ios SceneKit
-Написана по итогам вебинара от M-D-A
+# First game on iOS using SceneKit
+
+Written after webinar of M-D-A
+
+
