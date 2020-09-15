@@ -12,63 +12,80 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
+    //тут аутлеты на элементы сториборды
     @IBOutlet weak var viewScene: SCNView!
     @IBOutlet weak var labelScore: UILabel!
+    @IBOutlet weak var btnNewGame: UIButton!
     
-    var scores: Int = 0{
+    var scores: Int = 0{//очки за сбитые корабли
         didSet{
-            self.labelScore.text="Очки: \(self.scores)"
+            self.labelScore.text="Очки: \(self.scores)" // сразу обновим на экране, нужды в main UI нет - didSet итак всегда в main UI thread
         }
     }
     
-    var tapGesture : UITapGestureRecognizer!
+    var tapGesture : UITapGestureRecognizer!//это распознаватель жестов
     
-    var ship: SCNNode!
+    var ship: SCNNode! //собственно наш корабль
     
-    var duration: TimeInterval = 5
+    var duration: TimeInterval = 10 //длительность анимации, она же скорость полета (обратная)
     
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
 
     var extraShip: SCNNode?{
-        get{
+        get{//поиск корабля в графе узлов
             return scene.rootNode.childNode(withName: "ship", recursively: true)
         }
     }
-    func removeExtraShip(){
+    
+    func removeExtraShip(){//удаление подбитого корабля и его анимации
         extraShip?.removeFromParentNode()
+        extraShip?.removeAllActions()
     }
     
     func spawnShip(){
+        //создаем новый экземпляр корабля и добавляем его на сцену
         ship = SCNScene(named: "art.scnassets/ship.scn")!.rootNode.clone()
-        
         scene.rootNode.addChildNode(ship)
         
+        //задаем координаты корабля - каждый раз новые
         let x = Int.random(in: -25 ... 25)
         let y = Int.random(in: -25 ... 25)
-        let z = Int.random(in: -200 ... -50)
+        let z = Int.random(in: -140 ... -70)
         
         ship.position = SCNVector3(x, y, z )
         
+        //чтобы нос корабля был направлен на нас - зададим поворот всего корабля в камеру
         let multipler = 3
         let lookAtPos = SCNVector3(multipler * x, multipler * y, multipler * z)
         ship.look(at: lookAtPos)
             
+        //высчитаем скорость полета
         let duration = -self.duration * Double(z) / 100.0
         ship.runAction(SCNAction.move(to: SCNVector3(x:0, y:0, z: -10), duration: duration)){
+            //если анимация закончилась - значит корабль долетел до места - игра окончена
             self.removeExtraShip()
-            
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {//некоторые вещи требуют вызов в main UI потоке
                 self.viewScene?.removeGestureRecognizer(self.tapGesture)
+                self.labelScore.text="Игра окончена\nОчки: \(self.scores)\nНачать новую?"
+                self.btnNewGame.isHidden=false//кнопка перезапуска игры, покажем
             }
         }
-        self.duration *= 0.9
+        //будем увеличивать скорость с каждой новой генерацией
+        self.duration *= 0.95
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        removeExtraShip()
-        self.scores=0
+        //startNewGame()//после загрузки запустим игру
+    }
+    
+    //лучше в отдельной функции - проще будет потом перезапускать игру
+    private func startNewGame(){
+        removeExtraShip()//удаляем лишнее
+        self.scores=0//ставим очки в 0
+        
+        btnNewGame.isHidden=true //прячем кнопку, чтобы не мешалась
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -117,7 +134,7 @@ class GameViewController: UIViewController {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
         
-        spawnShip()
+        spawnShip()//добавляем корабль на сцену - игра началась
     }
     
     @objc
@@ -137,12 +154,12 @@ class GameViewController: UIViewController {
             
             // highlight it
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.25
+            SCNTransaction.animationDuration = 0.1
             
-            // on completion - unhighlight
+            // после того как красным покажется - удаляем корабль, создаем новую цель и увеличим очки
             SCNTransaction.completionBlock = {
-               self.ship.removeAllActions()
-               self.removeExtraShip()
+                self.ship.removeAllActions()
+                self.removeExtraShip()
                 self.scores+=10
                 self.spawnShip()
                                
@@ -154,6 +171,10 @@ class GameViewController: UIViewController {
         }
     }
     
+    @IBAction func btnNewGamePressed(_ sender: Any) {
+        startNewGame()
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }
@@ -162,6 +183,7 @@ class GameViewController: UIViewController {
         return true
     }
     
+    //надо запомнить на будущее - как управлять возможными ориентациями, в зависимости от модели устройства
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown

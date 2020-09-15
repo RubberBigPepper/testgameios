@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,19 +19,29 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87o-PB-Rrn">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </sceneKitView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-7j-64j">
-                                <rect key="frame" x="20" y="44" width="374" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-7j-64j">
+                                <rect key="frame" x="20" y="44" width="374" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-iP-Ppz">
+                                <rect key="frame" x="112" y="428.5" width="190" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Начать новую игру"/>
+                                <connections>
+                                    <action selector="btnNewGamePressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="aS4-Jv-XzX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="stg-S2-uhe" firstAttribute="trailing" secondItem="87o-PB-Rrn" secondAttribute="trailing" id="2Bb-jI-F9R"/>
                             <constraint firstItem="87o-PB-Rrn" firstAttribute="top" secondItem="stg-S2-uhe" secondAttribute="top" id="8aw-GZ-NQq"/>
                             <constraint firstItem="hFd-7j-64j" firstAttribute="leading" secondItem="stg-S2-uhe" secondAttribute="leading" constant="20" id="90R-Fc-01X"/>
+                            <constraint firstItem="pTa-iP-Ppz" firstAttribute="centerY" secondItem="ELv-bR-YCh" secondAttribute="centerY" id="I4l-cr-4Cw"/>
                             <constraint firstItem="87o-PB-Rrn" firstAttribute="leading" secondItem="stg-S2-uhe" secondAttribute="leading" id="Yw3-QO-PSQ"/>
+                            <constraint firstItem="pTa-iP-Ppz" firstAttribute="centerX" secondItem="ELv-bR-YCh" secondAttribute="centerX" id="bq8-mi-CcR"/>
                             <constraint firstItem="hFd-7j-64j" firstAttribute="top" secondItem="stg-S2-uhe" secondAttribute="top" id="o9J-xU-Wsg"/>
                             <constraint firstItem="87o-PB-Rrn" firstAttribute="bottom" secondItem="stg-S2-uhe" secondAttribute="bottom" id="qaU-G1-Ni8"/>
                             <constraint firstItem="stg-S2-uhe" firstAttribute="trailing" secondItem="hFd-7j-64j" secondAttribute="trailing" constant="20" id="rMy-Qb-jAt"/>
@@ -38,6 +49,7 @@
                         <viewLayoutGuide key="safeArea" id="stg-S2-uhe"/>
                     </view>
                     <connections>
+                        <outlet property="btnNewGame" destination="pTa-iP-Ppz" id="ej2-xF-pbl"/>
                         <outlet property="labelScore" destination="hFd-7j-64j" id="10U-R2-On2"/>
                         <outlet property="viewScene" destination="87o-PB-Rrn" id="Kct-GQ-M5k"/>
                     </connections>
