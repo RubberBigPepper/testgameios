@@ -38,9 +38,9 @@ class GameViewController: UIViewController {
         }
     }
     
-    func removeExtraShip(){//удаление подбитого корабля и его анимации
-        extraShip?.removeFromParentNode()
-        extraShip?.removeAllActions()
+    func removeNode(_ node: SCNNode?){//удаление объекта и его анимации
+        node?.removeFromParentNode()
+        node?.removeAllActions()
     }
     
     func spawnShip(){
@@ -64,10 +64,10 @@ class GameViewController: UIViewController {
         let duration = -self.duration * Double(z) / 100.0
         ship.runAction(SCNAction.move(to: SCNVector3(x:0, y:0, z: -10), duration: duration)){
             //если анимация закончилась - значит корабль долетел до места - игра окончена
-            self.removeExtraShip()
+            self.removeNode(self.ship)
             DispatchQueue.main.async {//некоторые вещи требуют вызов в main UI потоке
                 self.viewScene?.removeGestureRecognizer(self.tapGesture)
-                self.labelScore.text="Игра окончена\nОчки: \(self.scores)\nНачать новую?"
+                self.labelScore.text="Игра окончена\nОчки: \(self.scores)"
                 self.btnNewGame.isHidden=false//кнопка перезапуска игры, покажем
             }
         }
@@ -77,31 +77,26 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //startNewGame()//после загрузки запустим игру
+        prepareGame()//после загрузки подготовим сцену
     }
     
-    //лучше в отдельной функции - проще будет потом перезапускать игру
-    private func startNewGame(){
-        removeExtraShip()//удаляем лишнее
-        self.scores=0//ставим очки в 0
-        
-        btnNewGame.isHidden=true //прячем кнопку, чтобы не мешалась
-        
+    private func prepareGame(){
         // create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
-        
+
+
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        
+
         // create and add a light to the scene
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
         lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
         scene.rootNode.addChildNode(lightNode)
-        
+
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
@@ -109,30 +104,39 @@ class GameViewController: UIViewController {
         ambientLightNode.light!.color = UIColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
+        // retrieve the SCNView
+        let scnView = self.viewScene!
+
+        // set the scene to the view
+        scnView.scene = scene
+
+        // allows the user to manipulate the camera
+        scnView.allowsCameraControl = !true
+
+        // show statistics such as fps and timing information
+        scnView.showsStatistics = true
+
+        // configure the view
+        scnView.backgroundColor = UIColor.black
+        removeNode(extraShip)//удаляем лишнее
+    }
+    
+    //лучше в отдельной функции - проще будет потом перезапускать игру
+    private func startNewGame(){
+        self.scores=0//ставим очки в 0
+        
+        btnNewGame.isHidden=true //прячем кнопку, чтобы не мешалась
+            
+        
         // retrieve the ship node
         //ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
         //ship.position=SCNVector3(x: 0, y:0, z: -30)
         // animate the 3d object
      //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
-        // retrieve the SCNView
-        let scnView = self.viewScene!
-        
-        // set the scene to the view
-        scnView.scene = scene
-        
-        // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
-        
-        // show statistics such as fps and timing information
-        scnView.showsStatistics = true
-        
-        // configure the view
-        scnView.backgroundColor = UIColor.black
-        
         // add a tap gesture recognizer
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
+        viewScene?.addGestureRecognizer(tapGesture)
         
         spawnShip()//добавляем корабль на сцену - игра началась
     }
@@ -158,8 +162,7 @@ class GameViewController: UIViewController {
             
             // после того как красным покажется - удаляем корабль, создаем новую цель и увеличим очки
             SCNTransaction.completionBlock = {
-                self.ship.removeAllActions()
-                self.removeExtraShip()
+                self.removeNode(self.ship)
                 self.scores+=10
                 self.spawnShip()
                                

@@ -16,6 +16,7 @@
 		50B4CDFA2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF72510C5040079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png */; };
 		50B4CDFB2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF82510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png */; };
 		50B4CDFC2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF92510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png */; };
+		50B4CDFE2510C5BE0079E2C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDFD2510C5BE0079E2C4 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		50B4CDF72510C5040079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.44.13.png"; sourceTree = "<group>"; };
 		50B4CDF82510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.44.39.png"; sourceTree = "<group>"; };
 		50B4CDF92510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.45.25.png"; sourceTree = "<group>"; };
+		50B4CDFD2510C5BE0079E2C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 				50B4CDF72510C5040079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png */,
 				50B4CDF82510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png */,
 				50B4CDF92510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png */,
+				50B4CDFD2510C5BE0079E2C4 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +151,7 @@
 				50B4CDFC2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png in Resources */,
 				50229DC2250FE078002C4099 /* LaunchScreen.storyboard in Resources */,
 				50229DBF250FE078002C4099 /* Assets.xcassets in Resources */,
+				50B4CDFE2510C5BE0079E2C4 /* README.md in Resources */,
 				50229DBD250FE074002C4099 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
