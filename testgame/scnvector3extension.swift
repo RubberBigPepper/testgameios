@@ -18,6 +18,14 @@ extension SCNVector3{//странно, что простейших операт�
         return SCNVector3(left.x - right.x, left.y - right.y, left.z - right.z) //I think it's faster than left+(-right)
     }
     
+    static func +=( left: inout SCNVector3, right: SCNVector3){
+        left=left+right
+    }
+    
+    static func -( left: inout SCNVector3, right: SCNVector3){
+        left=left-right
+    }
+    
     static prefix func -(right: SCNVector3) -> SCNVector3 {
         return right*(-1.0)
     }
@@ -46,6 +54,18 @@ extension SCNVector3{//странно, что простейших операт�
         return right*left
     }
     
+    static func *=(left: inout SCNVector3, right: Float){
+        left=left*right
+    }
+        
+    static func *=(left: inout SCNVector3, right: Int){
+        left=left*right
+    }
+     
+    static func *=(left: inout SCNVector3, right: Double){
+        left=left*right
+    }
+    
     static func *(left: SCNVector3, right: SCNVector3) -> Float {//scalar multipling
         return left.x * right.x + left.y * right.y + left.z * right.z
     }
@@ -61,6 +81,18 @@ extension SCNVector3{//странно, что простейших операт�
     
     static func /(left: SCNVector3, right: Int) -> SCNVector3 {
         return left/Float(right)
+    }
+    
+    static func /=(left: inout SCNVector3, right: Float){
+        left=left/right
+    }
+    
+    static func /=(left: inout SCNVector3, right: Double){
+        left=left/right
+    }
+    
+    static func /=(left: inout SCNVector3, right: Int){
+        left=left/right
     }
     
     var length: Float{
