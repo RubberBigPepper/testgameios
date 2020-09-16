@@ -13,6 +13,7 @@
 		50229DBD250FE074002C4099 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50229DBB250FE074002C4099 /* Main.storyboard */; };
 		50229DBF250FE078002C4099 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50229DBE250FE078002C4099 /* Assets.xcassets */; };
 		50229DC2250FE078002C4099 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50229DC0250FE078002C4099 /* LaunchScreen.storyboard */; };
+		502C416C2511DC540029BB92 /* scnvector3extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C416B2511DC540029BB92 /* scnvector3extension.swift */; };
 		50B4CDFA2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF72510C5040079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png */; };
 		50B4CDFB2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF82510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png */; };
 		50B4CDFC2510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B4CDF92510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png */; };
@@ -28,6 +29,7 @@
 		50229DBE250FE078002C4099 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50229DC1250FE078002C4099 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50229DC3250FE078002C4099 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		502C416B2511DC540029BB92 /* scnvector3extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scnvector3extension.swift; sourceTree = "<group>"; };
 		50B4CDF72510C5040079E2C4 /* Снимок экрана 2020-09-15 в 14.44.13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.44.13.png"; sourceTree = "<group>"; };
 		50B4CDF82510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.44.39.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.44.39.png"; sourceTree = "<group>"; };
 		50B4CDF92510C5050079E2C4 /* Снимок экрана 2020-09-15 в 14.45.25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Снимок экрана 2020-09-15 в 14.45.25.png"; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				50229DBE250FE078002C4099 /* Assets.xcassets */,
 				50229DC0250FE078002C4099 /* LaunchScreen.storyboard */,
 				50229DC3250FE078002C4099 /* Info.plist */,
+				502C416B2511DC540029BB92 /* scnvector3extension.swift */,
 			);
 			path = testgame;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			files = (
 				50229DBA250FE074002C4099 /* GameViewController.swift in Sources */,
 				50229DB6250FE074002C4099 /* AppDelegate.swift in Sources */,
+				502C416C2511DC540029BB92 /* scnvector3extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

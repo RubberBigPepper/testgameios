@@ -57,8 +57,7 @@ class GameViewController: UIViewController {
         
         //чтобы нос корабля был направлен на нас - зададим поворот всего корабля в камеру
         let multipler = 3
-        let lookAtPos = SCNVector3(multipler * x, multipler * y, multipler * z)
-        ship.look(at: lookAtPos)
+        ship.look(at: ship.position * multipler)
             
         //высчитаем скорость полета
         let duration = -self.duration * Double(z) / 100.0
@@ -126,14 +125,7 @@ class GameViewController: UIViewController {
         self.scores=0//ставим очки в 0
         
         btnNewGame.isHidden=true //прячем кнопку, чтобы не мешалась
-            
-        
-        // retrieve the ship node
-        //ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        //ship.position=SCNVector3(x: 0, y:0, z: -30)
-        // animate the 3d object
-     //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-        
+
         // add a tap gesture recognizer
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         viewScene?.addGestureRecognizer(tapGesture)
@@ -165,7 +157,6 @@ class GameViewController: UIViewController {
                 self.removeNode(self.ship)
                 self.scores+=10
                 self.spawnShip()
-                               
             }
             
             material.emission.contents = UIColor.red
@@ -194,5 +185,4 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
 }
